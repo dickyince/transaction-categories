@@ -1,14 +1,14 @@
 package com.coding.exercise;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 public interface TransactionList {
     public TransactionList getByCategory(String category);
 
-    public TransactionList getByMonth(Date month);
+    public TransactionList getByMonth(LocalDate month);
 
-    public TransactionList getByYear(Date year);
+    public TransactionList getByYear(LocalDate year);
 
     public BigDecimal getTotalAmount();
 

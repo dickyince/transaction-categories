@@ -1,0 +1,16 @@
+[
+  {
+    "date":"01/Nov/2020",
+    "vendor":"Morrisons",
+    "type":"CARD",
+    "amount":"10.40",
+    "category":"Groceries"
+  },
+  {
+    "date":"01/Oct/2020",
+    "vendor":"M&S",
+    "type":"CARD",
+    "amount":"5.99",
+    "category":"Groceries"
+  }
+]

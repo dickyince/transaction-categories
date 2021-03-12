@@ -32,5 +32,17 @@
     "vendor":"McMillan",
     "type":"INTERNET",
     "amount":"10"
+  },
+  {
+    "date":"27/Aug/2019",
+    "vendor":"Random Thing",
+    "type":"INTERNET",
+    "amount":"7.94"
+  },
+  {
+    "date":"19/Mar/2019",
+    "vendor":"Awesome Hotels",
+    "type":"CARD",
+    "amount":"250.49"
   }
 ]

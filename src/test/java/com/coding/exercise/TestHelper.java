@@ -9,15 +9,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 public class TestHelper {
-    public static Collection<Transaction> readJsonFile(String file) {
-        Collection<Transaction> testData = new ArrayList<Transaction>();
+    public static List<Transaction> readJsonFile(String file) {
+        List<Transaction> testData = new ArrayList<>();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/LLL/yyyy");
 
         JSONParser parser = new JSONParser();
@@ -29,7 +29,7 @@ public class TestHelper {
                 transaction.setDate(LocalDate.parse((CharSequence) json.get("date"), dateFormat));
                 transaction.setVendor((String) json.get("vendor"));
                 transaction.setType(TransactionType.valueOf((String) json.get("type")));
-                transaction.setAmount(new BigDecimal((String) json.get("amount")));
+                transaction.setAmount(new BigDecimal((String) json.get("amount")).setScale(2, RoundingMode.DOWN));
                 transaction.setCategory((String) json.get("category"));
                 testData.add(transaction);
             }

@@ -1,0 +1,23 @@
+[
+  {
+    "date":"28/Oct/2020",
+    "vendor":"CYBG",
+    "type":"DIRECT_DEBIT",
+    "amount":"600",
+    "category":"MyMonthlyDD"
+  },
+  {
+    "date":"28/Oct/2020",
+    "vendor":"PureGym",
+    "type":"DIRECT_DEBIT",
+    "amount":"40",
+    "category":"MyMonthlyDD"
+  },
+  {
+    "date":"01/Oct/2020",
+    "vendor":"M&S",
+    "type":"CARD",
+    "amount":"5.99",
+    "category":"Groceries"
+  }
+]
