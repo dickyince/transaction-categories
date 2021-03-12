@@ -1,20 +1,20 @@
 package com.coding.exercise;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Transaction {
-    private Date date;
+    private LocalDate date;
     private String vendor;
     private TransactionType type;
     private BigDecimal amount;
     private String category;
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

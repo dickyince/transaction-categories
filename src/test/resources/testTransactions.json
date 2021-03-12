@@ -1,0 +1,36 @@
+[
+  {
+    "date":"28/Oct/2020",
+    "vendor":"CYBG",
+    "type":"DIRECT_DEBIT",
+    "amount":"600",
+    "category":"MyMonthlyDD"
+  },
+  {
+    "date":"28/Oct/2020",
+    "vendor":"PureGym",
+    "type":"DIRECT_DEBIT",
+    "amount":"40",
+    "category":"MyMonthlyDD"
+  },
+  {
+    "date":"01/Oct/2020",
+    "vendor":"M&S",
+    "type":"CARD",
+    "amount":"5.99",
+    "category":"Groceries"
+  },
+  {
+    "date":"01/Nov/2020",
+    "vendor":"Morrisons",
+    "type":"CARD",
+    "amount":"10.40",
+    "category":"Groceries"
+  },
+  {
+    "date":"30/Sep/2020",
+    "vendor":"McMillan",
+    "type":"INTERNET",
+    "amount":"10"
+  }
+]

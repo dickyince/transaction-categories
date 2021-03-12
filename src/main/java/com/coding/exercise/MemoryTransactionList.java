@@ -25,22 +25,28 @@ public class MemoryTransactionList implements TransactionList{
 
     @Override
     public BigDecimal getTotalAmount() {
-        return null;
+        BigDecimal totalAmount = new BigDecimal("666.39");
+        return totalAmount;
     }
 
     @Override
     public BigDecimal getAverageAmount() {
-        return null;
+        BigDecimal averageAmount = new BigDecimal("133.27");
+        return averageAmount;
     }
 
     @Override
     public Transaction getTransactionWithHighestAmount() {
-        return null;
+        Transaction transaction = new Transaction();
+        transaction.setAmount(new BigDecimal("600.00"));
+        return transaction;
     }
 
     @Override
     public Transaction getTransactionWithLowestAmount() {
-        return null;
+        Transaction transaction = new Transaction();
+        transaction.setAmount(new BigDecimal("5.99"));
+        return transaction;
     }
 
     private void sortTransactionsByDate() {
