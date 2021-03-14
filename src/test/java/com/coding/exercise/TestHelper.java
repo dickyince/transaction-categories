@@ -52,7 +52,7 @@ public class TestHelper {
         transaction3.setDate(LocalDate.of(2019, 3, 19));
         transaction3.setVendor("Awesome Hotels");
         transaction3.setType(TransactionType.CARD);
-        transaction3.setAmount(new BigDecimal("250.94"));
+        transaction3.setAmount(new BigDecimal("250.49"));
         transactions.add(transaction3);
 
         return transactions;

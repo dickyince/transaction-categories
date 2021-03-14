@@ -2,14 +2,14 @@ package com.coding.exercise;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 public class FileTransactionDAOTest {
 
@@ -48,7 +48,9 @@ public class FileTransactionDAOTest {
         // when
         List<Transaction> actualResult = testSubject.getTransactionsByCategory("Groceries");
         // then
-        assertTrue(new ReflectionEquals(expectedResult).matches(actualResult));
+        for(int i = 0; i < expectedResult.size(); i++) {
+            assertThat(actualResult.get(i)).isEqualToComparingFieldByField(expectedResult.get(i));
+        }
     }
 
     @Test
@@ -58,7 +60,9 @@ public class FileTransactionDAOTest {
         // when
         List<Transaction> actualResult = testSubject.getTransactionsByCategory(null);
         // then
-        assertTrue(new ReflectionEquals(expectedResult).matches(actualResult));
+        for(int i = 0; i < expectedResult.size(); i++) {
+            assertThat(actualResult.get(i)).isEqualToComparingFieldByField(expectedResult.get(i));
+        }
     }
 
     @Test
@@ -68,7 +72,7 @@ public class FileTransactionDAOTest {
         // when
         Map<String, BigDecimal> actualResult = testSubject.getTotalsForCategories();
         // then
-        assertTrue(new ReflectionEquals(expectedResult).matches(actualResult));
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -88,7 +92,7 @@ public class FileTransactionDAOTest {
         // when
         BigDecimal actualResult = testSubject.getMonthlyAveragesByCategory("MyMonthlyDD");
         // then
-        assertTrue(new ReflectionEquals(expectedResult).matches(actualResult));
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -98,7 +102,7 @@ public class FileTransactionDAOTest {
         // when
         BigDecimal actualResult = testSubject.getMonthlyAveragesByCategory(null);
         // then
-        assertTrue(new ReflectionEquals(expectedResult).matches(actualResult));
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -112,7 +116,7 @@ public class FileTransactionDAOTest {
     }
 
     @Test
-    public void testGetHighestByCategoryAndYear_null_for_year_with_not_transactions() {
+    public void testGetHighestByCategoryAndYear_null_for_year_with_no_transactions() {
         // if
         // Expecting a null return value
         // when
@@ -128,7 +132,7 @@ public class FileTransactionDAOTest {
         // when
         Transaction actualResult = testSubject.getHighestByCategoryAndYear("Groceries", 2020);
         // then
-        assertTrue(new ReflectionEquals(expectedResult).matches(actualResult));
+        assertThat(actualResult).isEqualToComparingFieldByField(expectedResult);
     }
 
     @Test
@@ -138,7 +142,7 @@ public class FileTransactionDAOTest {
         // when
         Transaction actualResult = testSubject.getHighestByCategoryAndYear(null, 2019);
         // then
-        assertTrue(new ReflectionEquals(expectedResult).matches(actualResult));
+        assertThat(actualResult).isEqualToComparingFieldByField(expectedResult);
     }
 
     @Test
@@ -162,22 +166,22 @@ public class FileTransactionDAOTest {
     }
 
     @Test
-    public void testGetLowestByCategoryAndYear_Success_for_Groceries_category() {
+    public void testGetLowestByCategoryAndYear_Success_for_Groceries_category_year_2020() {
         // if
         Transaction expectedResult = TestHelper.getGroceriesLowest();
         // when
         Transaction actualResult = testSubject.getLowestByCategoryAndYear("Groceries", 2020);
         // then
-        assertTrue(new ReflectionEquals(expectedResult).matches(actualResult));
+        assertThat(actualResult).isEqualToComparingFieldByField(expectedResult);
     }
 
     @Test
-    public void testGetLowestByCategoryAndYear_Success_for_null_category() {
+    public void testGetLowestByCategoryAndYear_Success_for_null_category_year_2019() {
         // if
         Transaction expectedResult = TestHelper.getNullLowest();
         // when
-        Transaction actualResult = testSubject.getLowestByCategoryAndYear("Groceries", 2020);
+        Transaction actualResult = testSubject.getLowestByCategoryAndYear(null, 2019);
         // then
-        assertTrue(new ReflectionEquals(expectedResult).matches(actualResult));
+        assertThat(actualResult).isEqualToComparingFieldByField(expectedResult);
     }
 }
