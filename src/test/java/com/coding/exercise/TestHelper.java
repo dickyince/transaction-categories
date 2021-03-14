@@ -69,7 +69,11 @@ public class TestHelper {
     }
 
     public static BigDecimal getMyMonthlyDDAverages() {
-        return new BigDecimal("320.00");
+        return new BigDecimal("640.00");
+    }
+
+    public static BigDecimal getGroceriesAverages() {
+        return new BigDecimal("8.19");
     }
 
     public static BigDecimal getNullAverages() {

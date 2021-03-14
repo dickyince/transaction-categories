@@ -66,6 +66,26 @@ public class FileTransactionDAOTest {
     }
 
     @Test
+    public void testGetTotalsForCategories_null_if_file_does_not_exist() {
+        // if
+        testSubject = new FileTransactionDAO("src/test/resources/non_existent_file.json");
+        // when
+        Map<String, BigDecimal> actualResult = testSubject.getTotalsForCategories();
+        // then
+        assertNull(actualResult);
+    }
+
+    @Test
+    public void testGetTotalsForCategories_null_if_json_malformed() {
+        // if
+        testSubject = new FileTransactionDAO("src/test/resources/malformedTransactions.json");
+        // when
+        Map<String, BigDecimal> actualResult = testSubject.getTotalsForCategories();
+        // then
+        assertNull(actualResult);
+    }
+
+    @Test
     public void testGetTotalsForCategories_Success() {
         // if
         Map<String, BigDecimal> expectedResult = TestHelper.getCategoryTotals();
@@ -91,6 +111,16 @@ public class FileTransactionDAOTest {
         BigDecimal expectedResult = TestHelper.getMyMonthlyDDAverages();
         // when
         BigDecimal actualResult = testSubject.getMonthlyAveragesByCategory("MyMonthlyDD");
+        // then
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testGetMonthlyAveragesByCategory_Success_for_Groceries_category() {
+        // if
+        BigDecimal expectedResult = TestHelper.getGroceriesAverages();
+        // when
+        BigDecimal actualResult = testSubject.getMonthlyAveragesByCategory("Groceries");
         // then
         assertEquals(expectedResult, actualResult);
     }
