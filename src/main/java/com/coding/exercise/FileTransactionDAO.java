@@ -22,47 +22,33 @@ public class FileTransactionDAO implements TransactionDAO {
 
     @Override
     public List<Transaction> getTransactionsByCategory(String category) {
-        JSONArray data = readJSONFile();
-        if(data != null) {
-            List<Transaction> transactions = new ArrayList<>();
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/LLL/yyyy");
-            for(Object object : data) {
-                JSONObject json = (JSONObject) object;
+        List<Transaction> transactions = readJSONFile();
+        if(transactions != null) {
+            List<Transaction> categoryTransactions = new ArrayList<>();
+            for(Transaction t : transactions) {
                 if(category == null) {
-                    if(json.get("category") == null) {
-                        Transaction transaction = new Transaction();
-                        transaction.setDate(LocalDate.parse((CharSequence) json.get("date"), dateFormat));
-                        transaction.setVendor((String) json.get("vendor"));
-                        transaction.setType(TransactionType.valueOf((String) json.get("type")));
-                        transaction.setAmount(new BigDecimal((String) json.get("amount")).setScale(2, RoundingMode.DOWN));
-                        transactions.add(transaction);
+                    if(t.getCategory() == null) {
+                        categoryTransactions.add(t);
                     }
                 }
-                else if(category.equals(json.get("category"))) {
-                    Transaction transaction = new Transaction();
-                    transaction.setDate(LocalDate.parse((CharSequence) json.get("date"), dateFormat));
-                    transaction.setVendor((String) json.get("vendor"));
-                    transaction.setType(TransactionType.valueOf((String) json.get("type")));
-                    transaction.setAmount(new BigDecimal((String) json.get("amount")).setScale(2, RoundingMode.DOWN));
-                    transaction.setCategory((String) json.get("category"));
-                    transactions.add(transaction);
+                else if(category.equals(t.getCategory())) {
+                    categoryTransactions.add(t);
                 }
             }
-            transactions.sort(Comparator.comparing(Transaction::getDate).reversed());
-            return transactions;
+            categoryTransactions.sort(Comparator.comparing(Transaction::getDate).reversed());
+            return categoryTransactions;
         }
         return null;
     }
 
     @Override
     public Map<String, BigDecimal> getTotalsForCategories() {
-        JSONArray data = readJSONFile();
-        if(data != null) {
+        List<Transaction> transactions = readJSONFile();
+        if(transactions != null) {
             Map<String, BigDecimal> totals = new HashMap<>();
-            for(Object object : data) {
-                JSONObject json = (JSONObject) object;
-                String category = (String) json.get("category");
-                BigDecimal amount = new BigDecimal((String) json.get("amount")).setScale(2, RoundingMode.DOWN);
+            for(Transaction t : transactions) {
+                String category = t.getCategory();
+                BigDecimal amount = t.getAmount();
                 if(totals.get(category) != null) {
                     amount = amount.add(totals.get(category));
                 }
@@ -136,10 +122,28 @@ public class FileTransactionDAO implements TransactionDAO {
         return null;
     }
 
-    private JSONArray readJSONFile() {
+    private List<Transaction> readJSONFile() {
         JSONParser parser = new JSONParser();
         try {
-            return (JSONArray) parser.parse(new FileReader(fileLocation));
+            JSONArray data = (JSONArray) parser.parse(new FileReader(fileLocation));
+            if(data != null) {
+                List<Transaction> transactions = new ArrayList<>();
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/LLL/yyyy");
+                for (Object object : data) {
+                    JSONObject json = (JSONObject) object;
+                    Transaction transaction = new Transaction();
+
+                    transaction.setDate(LocalDate.parse((CharSequence) json.get("date"), dateFormat));
+                    transaction.setVendor((String) json.get("vendor"));
+                    transaction.setType(TransactionType.valueOf((String) json.get("type")));
+                    transaction.setAmount(new BigDecimal((String) json.get("amount")).setScale(2, RoundingMode.DOWN));
+                    transaction.setCategory((String) json.get("category"));
+
+                    transactions.add(transaction);
+                }
+                return transactions;
+            }
+            // I would log this exception and/or try to recover from it here but I'll just print to stdout just now
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
